@@ -4,3 +4,4 @@ target_sources(${CMAKE_PROJECT_NAME}
 
 add_subdirectory(abstract_class)
 add_subdirectory(class)
+add_subdirectory(gui)
