@@ -13,17 +13,16 @@ public:
     static FileModel* getInstance();
 
     bool isFileExist(QString);
-    void addFileToList(QFile*);
-    void addFileToList(QString, QFile*);
-    void replaceFileInList(QString, QFile*);
+    void addFileToList(QString, QList<QString>);
+    void replaceFileInList(QString, QList<QString>);
     void removeFileFromList(QString);
-    void deleteFileFromList(QString);
-    QFile* getFileFromList(QString);
+    QList<QString> getFileFromList(QString);
 
 private:
     FileModel();
     static FileModel* uniqueInstance;
     QMap<QString, QFile*> m_filesList;
+    QMap<QString, QList<QString>> m_tmpFileList;
 };
 
 #endif // FILEMODEL_H
