@@ -16,6 +16,8 @@ EditorItem::EditorItem(FileController* controller)
 
     connect(m_fileDisplay, SIGNAL(currentTextChanged(QString)), this, SLOT(slotTextChanged(QString)));
     connect(m_textEditor, SIGNAL(textChanged()), this, SLOT(slotTextChanged()));
+
+    updateFileDisplayContent();
 }
 
 EditorItem::~EditorItem()
@@ -33,23 +35,24 @@ QString EditorItem::getTextEditorContent()
     return m_textEditor->toPlainText();
 }
 
-void EditorItem::updateFileDisplayContent(QList<QString> listOfFile)
-{
-    int index = 0;
-    for(QString fileName : listOfFile)
-    {
-        m_fileDisplay->addItem(fileName, index);
-        index++;
-    }
-}
-
-void EditorItem::update()
+void EditorItem::updateFileDisplayContent()
 {
     QList<QString> fileNameList = m_fileController->getFileNameList();
     QString currentFileSelected = m_fileDisplay->currentText();
     m_fileDisplay->clear();
-    updateFileDisplayContent(fileNameList);
+
+    int index = 0;
+    for(QString fileName : fileNameList)
+    {
+        m_fileDisplay->addItem(fileName, index);
+        index++;
+    }
     m_fileDisplay->setCurrentText(currentFileSelected);
+}
+
+void EditorItem::update()
+{
+    updateFileDisplayContent();
 }
 
 void EditorItem::slotSelectedFileChanged(QString filename)

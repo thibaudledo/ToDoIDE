@@ -1,13 +1,14 @@
 #include "main_window.h"
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(FileController* controller)
 {
+    m_fileController = controller;
+
     m_mainLayout = new QVBoxLayout(this);
 
-   // m_textEditor = new QPlainTextEdit(this);
+    m_editorItem = new EditorItem(m_fileController);
 
-    m_editorItem = new EditorItem(nullptr);
-
+    // m_textEditor = new QPlainTextEdit(this);
     //m_mainLayout->addWidget(m_textEditor);
 
     setCentralWidget(m_editorItem);
@@ -20,6 +21,17 @@ MainWindow::MainWindow()
     createMenu();
 
     //setLayout(m_mainLayout);
+
+    connect(m_newAct, &QAction::triggered, this, &MainWindow::slotNewFile);
+    connect(m_openAct, &QAction::triggered, this, &MainWindow::slotOpenFile);
+    connect(m_saveAct, &QAction::triggered, this, &MainWindow::slotSaveFile);
+    connect(m_exitAct, &QAction::triggered, this, &MainWindow::slotExit);
+    connect(m_undoAct, &QAction::triggered, this, &MainWindow::slotUndo);
+    connect(m_redoAct, &QAction::triggered, this, &MainWindow::slotRedo);
+    connect(m_cutAct, &QAction::triggered, this, &MainWindow::slotCut);
+    connect(m_copyAct, &QAction::triggered, this, &MainWindow::slotCopy);
+    connect(m_pasteAct, &QAction::triggered, this, &MainWindow::slotPaste);
+    connect(m_aboutAct, &QAction::triggered, this, &MainWindow::slotAbout);
 }
 
 MainWindow::~MainWindow()
@@ -100,5 +112,55 @@ void MainWindow::createMenu()
 
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAct);
+}
+
+void MainWindow::slotNewFile()
+{
+
+}
+
+void MainWindow::slotOpenFile()
+{
+
+}
+
+void MainWindow::slotSaveFile()
+{
+
+}
+
+void MainWindow::slotExit()
+{
+
+}
+
+void MainWindow::slotUndo()
+{
+
+}
+
+void MainWindow::slotRedo()
+{
+
+}
+
+void MainWindow::slotCut()
+{
+
+}
+
+void MainWindow::slotCopy()
+{
+
+}
+
+void MainWindow::slotPaste()
+{
+
+}
+
+void MainWindow::slotAbout()
+{
+
 }
 

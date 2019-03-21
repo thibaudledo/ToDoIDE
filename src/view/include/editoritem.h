@@ -17,7 +17,7 @@ public:
 
     void setTextEditorContent(QString fileContent);
     QString getTextEditorContent();
-    void updateFileDisplayContent(QList<QString> listOfFile);
+    void updateFileDisplayContent();
     void update();
 private:
     QVBoxLayout* m_mainLayout;
