@@ -6,6 +6,7 @@
 #include <QTextStream>
 
 #include "filemodel.h"
+#include "observerinterface.h"
 
 class FileController
 {
@@ -19,6 +20,9 @@ public:
     QString getFileContent(QString fileName);
     void setFileContent(QString fileName, QString fileContent);
 
+    void registerObserverToModel(ObserverInterface* observer);
+    void removeObserverFromModel(ObserverInterface* observer);
+    QList<QString> getFileNameList();
 private:
     FileModel* m_fileModel;
 };

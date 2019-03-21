@@ -29,6 +29,7 @@ bool FileModel::isFileExist(QString fileName)
 void FileModel::addFileToList(QString fileName, QString fileContent)
 {
     m_tmpFileList.insert(fileName, fileContent);
+    updateAllObserver();
 }
 
 void FileModel::updateFileContent(QString fileName, QString fileContent)
@@ -52,4 +53,9 @@ void FileModel::removeFileFromList(QString fileName)
 QString FileModel::getFileContentFromList(QString fileName)
 {
     return m_tmpFileList.value(fileName);
+}
+
+QList<QString> FileModel::getFileNameList()
+{
+    return m_tmpFileList.keys();
 }

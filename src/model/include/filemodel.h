@@ -19,6 +19,7 @@ public:
     void renameFileInList(QString oldName, QString newName);
     void removeFileFromList(QString fileName);
     QString getFileContentFromList(QString fileName);
+    QList<QString> getFileNameList();
 
 private:
     FileModel();
