@@ -4,29 +4,48 @@
 
 #include <string>
 
+#include <QObject>
 #include <QPlainTextEdit>
 #include <QMenuBar>
 #include <QMenu>
 #include <QTreeView>
 #include <QAction>
+#include <QVBoxLayout>
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow
+{
 public:
-    MainWindow() = default;
-    MainWindow(std::string &windowName);
+    MainWindow();
+
+    ~MainWindow();
 
     std::string getWindowName() const;
     void setWindowName(const std::string &windowName);
 
 private:
+    void createAction();
+    void createMenu();
+
     std::string m_windowName;
+
+    QVBoxLayout* m_mainLayout;
 
     QMenuBar* m_menuBar;
 
     QMenu* m_fileMenu;
-    QMenu* editMenu;
+    QMenu* m_editMenu;
+    QMenu* m_helpMenu;
 
-
+    QAction* m_newAct;
+    QAction* m_openAct;
+    QAction* m_saveAct;
+    QAction* m_exitAct;
+    QAction* m_undoAct;
+    QAction* m_redoAct;
+    QAction* m_cutAct;
+    QAction* m_copyAct;
+    QAction* m_pasteAct;
+    QAction* m_aboutAct;
 
 
     QTreeView* m_treeView;
