@@ -12,17 +12,18 @@ public:
     ~FileModel();
     static FileModel* getInstance();
 
-    bool isFileExist(QString);
-    void addFileToList(QString, QList<QString>);
-    void replaceFileInList(QString, QList<QString>);
-    void removeFileFromList(QString);
-    QList<QString> getFileFromList(QString);
+    bool isFileExist(QString fileName);
+    void addFileToList(QString fileName);
+    void addFileToList(QString fileName, QString fileContent);
+    void updateFileContent(QString fileName, QString fileContent);
+    void renameFileInList(QString oldName, QString newName);
+    void removeFileFromList(QString fileName);
+    QString getFileContentFromList(QString fileName);
 
 private:
     FileModel();
     static FileModel* uniqueInstance;
-    QMap<QString, QFile*> m_filesList;
-    QMap<QString, QList<QString>> m_tmpFileList;
+    QMap<QString, QString> m_tmpFileList;
 };
 
 #endif // FILEMODEL_H
