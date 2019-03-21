@@ -21,28 +21,35 @@ FileModel *FileModel::getInstance()
     return uniqueInstance;
 }
 
-bool FileModel::isFileExist(QString name)
+bool FileModel::isFileExist(QString fileName)
 {
-    return m_filesList.contains(name);
+    return m_tmpFileList.contains(fileName);
 }
 
-void FileModel::addFileToList(QString name, QList<QString> file)
+void FileModel::addFileToList(QString fileName, QString fileContent)
 {
-    m_tmpFileList.insert(name, file);
+    m_tmpFileList.insert(fileName, fileContent);
 }
 
-void FileModel::replaceFileInList(QString name, QList<QString> file)
+void FileModel::updateFileContent(QString fileName, QString fileContent)
 {
-    removeFileFromList(name);
-    addFileToList(name, file);
+    removeFileFromList(fileName);
+    addFileToList(fileName, fileContent);
 }
 
-void FileModel::removeFileFromList(QString name)
+void FileModel::renameFileInList(QString oldName, QString newName)
 {
-    m_filesList.remove(name);
+    QString fileContent = getFileContentFromList(oldName);
+    removeFileFromList(oldName);
+    addFileToList(newName, fileContent);
 }
 
-QList<QString> FileModel::getFileFromList(QString name)
+void FileModel::removeFileFromList(QString fileName)
 {
-    return m_tmpFileList.value(name);
+    m_tmpFileList.remove(fileName);
+}
+
+QString FileModel::getFileContentFromList(QString fileName)
+{
+    return m_tmpFileList.value(fileName);
 }

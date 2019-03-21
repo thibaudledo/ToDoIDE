@@ -11,16 +11,14 @@ class FileController
 {
 public:
     FileController();
-    bool createNewFile(QString);
-    bool openFile(QString);
-    bool closeFile(QString);
-    bool removeFile(QString);
-    bool rename(QString oldName, QString newName);
-    bool rename(QFile* file, QString newName);
-    QString readAllFile(QString);
-    QString readLineFromFile(QString, int);
-    void writeToFile(QString name, QString str);
-    void writeToFile(QString name, QString str, int line);
+    int createNewFile(QString fileName);
+    int openFile(QString fileName);
+    void saveFile(QString fileName);
+    void saveFile(QString fileName, QString fileContent);
+    void saveFileAndRemoveFromList(QString fileName);
+    QString getFileContent(QString fileName);
+    void setFileContent(QString fileName, QString fileContent);
+
 private:
     FileModel* m_fileModel;
 };
