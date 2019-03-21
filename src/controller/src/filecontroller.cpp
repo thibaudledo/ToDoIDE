@@ -63,4 +63,19 @@ void FileController::setFileContent(QString fileName, QString fileContent)
     m_fileModel->updateFileContent(fileName, fileContent);
 }
 
+void FileController::registerObserverToModel(ObserverInterface *observer)
+{
+    m_fileModel->registerObserver(observer);
+}
+
+void FileController::removeObserverFromModel(ObserverInterface *observer)
+{
+    m_fileModel->removeObserver(observer);
+}
+
+QList<QString> FileController::getFileNameList()
+{
+    return m_fileModel->getFileNameList();
+}
+
 

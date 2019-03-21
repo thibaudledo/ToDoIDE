@@ -6,7 +6,7 @@
 class ObserverInterface
 {
 public:
-    virtual ~ObserverInterface() = 0;
+    virtual ~ObserverInterface(){;}
     virtual void update() = 0;
 };
 
