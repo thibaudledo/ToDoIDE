@@ -7,6 +7,6 @@ find_package(Qt5Widgets REQUIRED)
 
 add_executable(${CMAKE_PROJECT_NAME} "")
 
-add_subdirectory(${CMAKE_PROJECT_NAME})
+add_subdirectory(src)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Core Qt5::Widgets)

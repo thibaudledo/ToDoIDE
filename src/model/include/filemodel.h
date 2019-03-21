@@ -4,7 +4,7 @@
 #include <QMap>
 #include <QFile>
 
-#include "../../abstract_class/observer_pattern/observableinterface.h"
+#include "observableinterface.h"
 
 class FileModel : public ObservableInterface
 {

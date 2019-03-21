@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QTextStream>
 
-#include "../model/filemodel.h"
+#include "filemodel.h"
 
 class FileController
 {
