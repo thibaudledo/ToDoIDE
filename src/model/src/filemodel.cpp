@@ -9,10 +9,7 @@ FileModel::FileModel()
 
 FileModel::~FileModel()
 {
-    for(auto o : m_filesList.values())
-    {
-        delete o;
-    }
+    m_tmpFileList.clear();
 }
 
 FileModel *FileModel::getInstance()
@@ -29,19 +26,14 @@ bool FileModel::isFileExist(QString name)
     return m_filesList.contains(name);
 }
 
-void FileModel::addFileToList(QFile *file)
+void FileModel::addFileToList(QString name, QList<QString> file)
 {
-    m_filesList.insert(file->fileName(), file);
+    m_tmpFileList.insert(name, file);
 }
 
-void FileModel::addFileToList(QString name, QFile *file)
+void FileModel::replaceFileInList(QString name, QList<QString> file)
 {
-    m_filesList.insert(name, file);
-}
-
-void FileModel::replaceFileInList(QString name, QFile *file)
-{
-    deleteFileFromList(name);
+    removeFileFromList(name);
     addFileToList(name, file);
 }
 
@@ -50,13 +42,7 @@ void FileModel::removeFileFromList(QString name)
     m_filesList.remove(name);
 }
 
-void FileModel::deleteFileFromList(QString name)
+QList<QString> FileModel::getFileFromList(QString name)
 {
-    QFile* file = m_filesList.take(name);
-    delete  file;
-}
-
-QFile *FileModel::getFileFromList(QString name)
-{
-    return m_filesList.value(name);
+    return m_tmpFileList.value(name);
 }
