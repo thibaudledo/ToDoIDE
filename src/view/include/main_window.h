@@ -12,6 +12,8 @@
 #include <QAction>
 #include <QVBoxLayout>
 
+#include "editoritem.h"
+
 class MainWindow : public QMainWindow
 {
 public:
@@ -49,6 +51,8 @@ private:
 
 
     QTreeView* m_treeView;
+
+    EditorItem* m_editorItem;
     QPlainTextEdit* m_textEditor;
 
 

@@ -4,11 +4,13 @@ MainWindow::MainWindow()
 {
     m_mainLayout = new QVBoxLayout(this);
 
-    m_textEditor = new QPlainTextEdit(this);
+   // m_textEditor = new QPlainTextEdit(this);
 
-    m_mainLayout->addWidget(m_textEditor);
+    m_editorItem = new EditorItem(nullptr);
 
-    setCentralWidget(m_textEditor);
+    //m_mainLayout->addWidget(m_textEditor);
+
+    setCentralWidget(m_editorItem);
 
     m_menuBar = new QMenuBar(this);
 
@@ -17,9 +19,7 @@ MainWindow::MainWindow()
     createAction();
     createMenu();
 
-    m_menuBar->setVisible(true);
-
-    setLayout(m_mainLayout);
+    //setLayout(m_mainLayout);
 }
 
 MainWindow::~MainWindow()
