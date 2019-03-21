@@ -23,3 +23,11 @@ void ObservableInterface::removeObserver(ObserverInterface *ob)
         }
     }
 }
+
+void ObservableInterface::updateAllObserver()
+{
+    for(auto o : m_observerList)
+    {
+        o->update();
+    }
+}

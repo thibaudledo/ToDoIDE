@@ -11,6 +11,7 @@ public:
     virtual ~ObservableInterface();
     virtual void registerObserver(ObserverInterface*);
     virtual void removeObserver(ObserverInterface*);
+    virtual void updateAllObserver();
 
 };
 
