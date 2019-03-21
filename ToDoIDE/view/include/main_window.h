@@ -4,15 +4,15 @@
 
 #include <string>
 
-#include "component_interface/component_interface.h"
+#include
 
-class MainWindow : public QMainWindow, public ComponentInterface {
+class MainWindow : public QMainWindow {
     public:
         MainWindow() = default;
         MainWindow(std::string &windowName);
 
-        void update();
-
     private:
         std::string m_windowName;
+
+
 };
