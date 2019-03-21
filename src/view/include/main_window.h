@@ -12,12 +12,19 @@
 #include <QAction>
 #include <QVBoxLayout>
 
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QDir>
+
+#include "filecontroller.h"
 #include "editoritem.h"
+
+#include <QDebug>
 
 class MainWindow : public QMainWindow
 {
 public:
-    MainWindow();
+    MainWindow(FileController* controller);
 
     ~MainWindow();
 
@@ -29,6 +36,8 @@ private:
     void createMenu();
 
     std::string m_windowName;
+
+    FileController* m_fileController;
 
     QVBoxLayout* m_mainLayout;
 
@@ -55,6 +64,16 @@ private:
     EditorItem* m_editorItem;
     QPlainTextEdit* m_textEditor;
 
-
+private slots:
+    void slotNewFile();
+    void slotOpenFile();
+    void slotSaveFile();
+    void slotExit();
+    void slotUndo();
+    void slotRedo();
+    void slotCut();
+    void slotCopy();
+    void slotPaste();
+    void slotAbout();
 
 };
