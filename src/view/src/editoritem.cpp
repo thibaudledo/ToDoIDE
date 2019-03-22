@@ -66,6 +66,8 @@ void EditorItem::updateFileEditorContent()
     if(!fileContent.isEmpty())
     {
         m_textEditor->setPlainText(fileContent);
+    }else {
+        m_textEditor->clear();
     }
     connect(m_textEditor, &QPlainTextEdit::textChanged, this, &EditorItem::slotTextChanged);
 }
@@ -77,7 +79,7 @@ QString EditorItem::getCurrentFileSelected()
 
 void EditorItem::displayNextFileOrClear()
 {
-
+    updateFileDisplayContent();
 }
 
 void EditorItem::updateData()

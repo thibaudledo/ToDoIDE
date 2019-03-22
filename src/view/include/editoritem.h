@@ -22,7 +22,6 @@ public:
     void updateFileDisplayContent();
     void updateFileEditorContent();
     QString getCurrentFileSelected();
-    void displayNextFileOrClear();
     void updateData();
 private:
     QVBoxLayout* m_mainLayout;

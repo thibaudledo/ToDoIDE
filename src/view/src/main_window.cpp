@@ -24,6 +24,7 @@ MainWindow::MainWindow(FileController* controller)
     connect(m_newAct, &QAction::triggered, this, &MainWindow::slotNewFile);
     connect(m_openAct, &QAction::triggered, this, &MainWindow::slotOpenFile);
     connect(m_saveAct, &QAction::triggered, this, &MainWindow::slotSaveFile);
+    connect(m_closeAct, &QAction::triggered, this, &MainWindow::slotCloseFile);
     connect(m_exitAct, &QAction::triggered, this, &MainWindow::slotExit);
     connect(m_undoAct, &QAction::triggered, this, &MainWindow::slotUndo);
     connect(m_redoAct, &QAction::triggered, this, &MainWindow::slotRedo);
@@ -147,8 +148,8 @@ void MainWindow::slotSaveFile()
 
 void MainWindow::slotCloseFile()
 {
+    qDebug() << "slotCloseFile";
     m_fileController->saveFileAndRemoveFromList(m_editorItem->getCurrentFileSelected());
-    m_editorItem->displayNextFileOrClear();
 }
 
 void MainWindow::slotExit()
