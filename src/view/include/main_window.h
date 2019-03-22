@@ -67,8 +67,6 @@ private:
 
     QDockWidget *m_dockWidget;
     QFileSystemModel *m_fileSystemModel;
-    QTreeView *m_treeView;
-    QPlainTextEdit* m_textEditor;
 
     EditorItem* m_editorItem;
     QPlainTextEdit* m_textEditor;

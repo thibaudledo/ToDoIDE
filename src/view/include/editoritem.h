@@ -34,8 +34,6 @@ private:
 
     QString m_currentFileSelected;
 
-    QString m_currentFileSelected;
-
     FileController* m_fileController;
 private slots:
     void slotSelectedFileChanged(QString filename);
