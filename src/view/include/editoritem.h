@@ -20,12 +20,16 @@ public:
     void setTextEditorContent(QString fileContent);
     QString getTextEditorContent();
     void updateFileDisplayContent();
+    void updateFileEditorContent();
     QString getCurrentFileSelected();
+    void displayNextFileOrClear();
     void updateData();
 private:
     QVBoxLayout* m_mainLayout;
     QPlainTextEdit* m_textEditor;
     QComboBox* m_fileDisplay;
+
+    QString m_currentFileSelected;
 
     FileController* m_fileController;
 private slots:

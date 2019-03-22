@@ -28,17 +28,14 @@ bool FileModel::isFileExist(QString fileName)
 
 void FileModel::addFileToList(QString fileName, QString fileContent)
 {
-    qDebug() << "1";
     m_tmpFileList.insert(fileName, fileContent);
-    qDebug() << "2";
     updateAllObserver();
-    qDebug() << "3";
 }
 
 void FileModel::updateFileContent(QString fileName, QString fileContent)
 {
-    removeFileFromList(fileName);
-    addFileToList(fileName, fileContent);
+    m_tmpFileList.remove(fileName);
+    m_tmpFileList.insert(fileName, fileContent);
 }
 
 void FileModel::renameFileInList(QString oldName, QString newName)
@@ -46,11 +43,13 @@ void FileModel::renameFileInList(QString oldName, QString newName)
     QString fileContent = getFileContentFromList(oldName);
     removeFileFromList(oldName);
     addFileToList(newName, fileContent);
+    updateAllObserver();
 }
 
 void FileModel::removeFileFromList(QString fileName)
 {
     m_tmpFileList.remove(fileName);
+    updateAllObserver();
 }
 
 QString FileModel::getFileContentFromList(QString fileName)

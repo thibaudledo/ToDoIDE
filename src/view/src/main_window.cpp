@@ -12,8 +12,6 @@ MainWindow::MainWindow(FileController* controller)
 
     m_editorItem = new EditorItem(m_fileController);
 
-    m_fileController->registerObserverToModel(m_editorItem);
-
     setCentralWidget(m_editorItem);
 
     m_menuBar = new QMenuBar(this);
@@ -125,7 +123,6 @@ void MainWindow::slotNewFile()
     QString fileName = QFileDialog::getSaveFileName(this, tr("Create a file"),
                                QDir::home().path(),
                                tr("Files (*)"));
-    qDebug() << fileName;
     if(fileName != "")
     {
         m_fileController->createNewFile(fileName);
@@ -134,7 +131,13 @@ void MainWindow::slotNewFile()
 
 void MainWindow::slotOpenFile()
 {
-
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Open a file"),
+                               QDir::home().path(),
+                               tr("Files (*)"), nullptr,QFileDialog::DontConfirmOverwrite);
+    if(fileName != "")
+    {
+        m_fileController->openFile(fileName);
+    }
 }
 
 void MainWindow::slotSaveFile()
@@ -144,7 +147,8 @@ void MainWindow::slotSaveFile()
 
 void MainWindow::slotCloseFile()
 {
-
+    m_fileController->saveFileAndRemoveFromList(m_editorItem->getCurrentFileSelected());
+    m_editorItem->displayNextFileOrClear();
 }
 
 void MainWindow::slotExit()
