@@ -149,7 +149,7 @@ void MainWindow::slotNewFile()
 
 void MainWindow::slotOpenFile()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Open a file"),
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open a file"),
                                QDir::home().path(),
                                tr("Files (*)"), nullptr,QFileDialog::DontConfirmOverwrite);
     if(fileName != "")
