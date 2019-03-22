@@ -19,7 +19,8 @@ int FileController::openFile(QString fileName)
         QFile* file = new QFile(fileName);
         if(file->open(QIODevice::ReadWrite))
         {
-            m_fileModel->addFileToList(fileName, file->readAll());
+            QString fileContent = file->readAll();
+            m_fileModel->addFileToList(fileName, fileContent);
             return true;
         }
     }
@@ -34,8 +35,6 @@ void FileController::saveFile(QString fileName)
     file->open(QIODevice::ReadWrite);
     file->write(fileContent.toUtf8());
     file->close();
-
-
 }
 
 void FileController::saveFile(QString fileName, QString fileContent)
