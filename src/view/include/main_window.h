@@ -50,6 +50,7 @@ private:
     QAction* m_newAct;
     QAction* m_openAct;
     QAction* m_saveAct;
+    QAction* m_closeAct;
     QAction* m_exitAct;
     QAction* m_undoAct;
     QAction* m_redoAct;
@@ -68,6 +69,7 @@ private slots:
     void slotNewFile();
     void slotOpenFile();
     void slotSaveFile();
+    void slotCloseFile();
     void slotExit();
     void slotUndo();
     void slotRedo();

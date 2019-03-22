@@ -64,6 +64,10 @@ void MainWindow::createAction()
     m_saveAct->setShortcut(QKeySequence::Save);
     m_saveAct->setStatusTip("Save a file");
 
+    m_closeAct = new QAction("Close", this);
+    m_closeAct->setShortcut(QKeySequence::Close);
+    m_closeAct->setStatusTip("Close current document");
+
     m_exitAct = new QAction("Exit", this);
     m_exitAct->setShortcut(QKeySequence::Quit);
     m_exitAct->setStatusTip("Exit the program");
@@ -99,6 +103,7 @@ void MainWindow::createMenu()
     m_fileMenu->addAction(m_newAct);
     m_fileMenu->addAction(m_openAct);
     m_fileMenu->addAction(m_saveAct);
+    m_fileMenu->addAction(m_closeAct);
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAct);
 
@@ -125,6 +130,11 @@ void MainWindow::slotOpenFile()
 }
 
 void MainWindow::slotSaveFile()
+{
+
+}
+
+void MainWindow::slotCloseFile()
 {
 
 }
