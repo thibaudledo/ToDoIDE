@@ -1,5 +1,8 @@
 #include "main_window.h"
 
+#include <QDir>
+
+
 MainWindow::MainWindow()
 {
     m_mainLayout = new QVBoxLayout(this);
@@ -16,6 +19,7 @@ MainWindow::MainWindow()
 
     createAction();
     createMenu();
+    createTreeView();
 
     m_menuBar->setVisible(true);
 
@@ -102,3 +106,43 @@ void MainWindow::createMenu()
     m_helpMenu->addAction(m_aboutAct);
 }
 
+
+int MainWindow::createTreeView() {
+    m_dockWidget = new QDockWidget("Tree view", this);
+
+    if (!m_dockWidget)
+        return -ENOMEM;
+
+    //m_dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    
+    m_fileSystemModel = new QFileSystemModel();
+
+    if (!m_fileMenu)
+        return -ENOMEM;
+
+    m_fileSystemModel->setRootPath(QDir::homePath());
+
+    m_treeView = new QTreeView(m_dockWidget);
+
+    if (!m_treeView)
+        return -ENOMEM;
+
+    m_treeView->setModel(m_fileSystemModel);
+
+    m_treeView->setHeaderHidden(true);
+
+    // Hidden unwanted columns
+    m_treeView->setColumnHidden(1, true);
+    m_treeView->setColumnHidden(2, true);
+    m_treeView->setColumnHidden(3, true);
+
+    m_treeView->resizeColumnToContents(true);
+
+    m_treeView->setRootIndex(m_fileSystemModel->index(QDir::homePath()));
+
+    m_dockWidget->setWidget(m_treeView);
+
+    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidget);
+
+    return 0;
+}

@@ -11,6 +11,8 @@
 #include <QTreeView>
 #include <QAction>
 #include <QVBoxLayout>
+#include <QDockWidget>
+#include <QFileSystemModel>
 
 class MainWindow : public QMainWindow
 {
@@ -25,6 +27,7 @@ public:
 private:
     void createAction();
     void createMenu();
+    int createTreeView();
 
     std::string m_windowName;
 
@@ -48,7 +51,9 @@ private:
     QAction* m_aboutAct;
 
 
-    QTreeView* m_treeView;
+    QDockWidget *m_dockWidget;
+    QFileSystemModel *m_fileSystemModel;
+    QTreeView *m_treeView;
     QPlainTextEdit* m_textEditor;
 
 
