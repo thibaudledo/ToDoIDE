@@ -3,6 +3,8 @@
 
 #include "observerinterface.h"
 
+#include <QDebug>
+
 class ObservableInterface
 {
 protected:

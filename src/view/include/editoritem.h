@@ -9,6 +9,8 @@
 #include "filecontroller.h"
 #include "observerinterface.h"
 
+#include <QDebug>
+
 class EditorItem : public QWidget, public ObserverInterface
 {
 public:
@@ -18,7 +20,8 @@ public:
     void setTextEditorContent(QString fileContent);
     QString getTextEditorContent();
     void updateFileDisplayContent();
-    void update();
+    QString getCurrentFileSelected();
+    void updateData();
 private:
     QVBoxLayout* m_mainLayout;
     QPlainTextEdit* m_textEditor;

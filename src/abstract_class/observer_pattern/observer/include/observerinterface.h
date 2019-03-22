@@ -3,11 +3,14 @@
 
 #include <QObject>
 
+#include <QDebug>
+
 class ObserverInterface
 {
 public:
-    virtual ~ObserverInterface(){;}
-    virtual void update() = 0;
+    ObserverInterface();
+    virtual ~ObserverInterface();
+    virtual void updateData() = 0;
 };
 
 #endif // OBSERVERINTERFACE_H
