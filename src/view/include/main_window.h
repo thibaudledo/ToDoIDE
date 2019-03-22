@@ -11,6 +11,8 @@
 #include <QTreeView>
 #include <QAction>
 #include <QVBoxLayout>
+#include <QDockWidget>
+#include <QFileSystemModel>
 
 #include <QFileDialog>
 #include <QInputDialog>
@@ -34,6 +36,7 @@ public:
 private:
     void createAction();
     void createMenu();
+    int createTreeView();
 
     std::string m_windowName;
 
@@ -58,9 +61,14 @@ private:
     QAction* m_copyAct;
     QAction* m_pasteAct;
     QAction* m_aboutAct;
-
+    QAction* m_projectAct;
 
     QTreeView* m_treeView;
+
+    QDockWidget *m_dockWidget;
+    QFileSystemModel *m_fileSystemModel;
+    QTreeView *m_treeView;
+    QPlainTextEdit* m_textEditor;
 
     EditorItem* m_editorItem;
     QPlainTextEdit* m_textEditor;
@@ -77,5 +85,5 @@ private slots:
     void slotCopy();
     void slotPaste();
     void slotAbout();
-
+    void slotNewProject();
 };

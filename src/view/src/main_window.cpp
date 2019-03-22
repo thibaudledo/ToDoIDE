@@ -1,12 +1,15 @@
 #include "main_window.h"
 
+#include <QDir>
+
+
 MainWindow::MainWindow(FileController* controller)
 {
     m_fileController = controller;
 
-    setFixedSize(QSize(800,600));
+    setFixedSize(QSize(800, 600));
 
-    move(460,240);
+    move(460, 240);
 
     m_mainLayout = new QVBoxLayout(this);
 
@@ -22,6 +25,7 @@ MainWindow::MainWindow(FileController* controller)
 
     createAction();
     createMenu();
+    createTreeView();
 
     connect(m_newAct, &QAction::triggered, this, &MainWindow::slotNewFile);
     connect(m_openAct, &QAction::triggered, this, &MainWindow::slotOpenFile);
@@ -33,51 +37,56 @@ MainWindow::MainWindow(FileController* controller)
     connect(m_copyAct, &QAction::triggered, this, &MainWindow::slotCopy);
     connect(m_pasteAct, &QAction::triggered, this, &MainWindow::slotPaste);
     connect(m_aboutAct, &QAction::triggered, this, &MainWindow::slotAbout);
+    connect(m_projectAct, &QAction::triggered, this, &MainWindow::slotNewProject);
 }
+
 
 MainWindow::~MainWindow()
 {
 
 }
 
+
 std::string MainWindow::getWindowName() const
 {
     return m_windowName;
 }
+
 
 void MainWindow::setWindowName(const std::string &windowName)
 {
     m_windowName = windowName;
 }
 
+
 void MainWindow::createAction()
 {
-    m_newAct = new QAction("New", this);
+    m_newAct = new QAction("&File", this);
     m_newAct->setShortcut(QKeySequence::New);
     m_newAct->setStatusTip("Create a new file");
     //connect()
 
-    m_openAct = new QAction("Open", this);
+    m_openAct = new QAction("&File", this);
     m_openAct->setShortcut(QKeySequence::Open);
     m_openAct->setStatusTip("Open a file");
 
-    m_saveAct = new QAction("Save", this);
+    m_saveAct = new QAction("&Save", this);
     m_saveAct->setShortcut(QKeySequence::Save);
     m_saveAct->setStatusTip("Save a file");
 
-    m_closeAct = new QAction("Close", this);
+    m_closeAct = new QAction("&Close", this);
     m_closeAct->setShortcut(QKeySequence::Close);
     m_closeAct->setStatusTip("Close current document");
 
-    m_exitAct = new QAction("Exit", this);
+    m_exitAct = new QAction("&Exit", this);
     m_exitAct->setShortcut(QKeySequence::Quit);
     m_exitAct->setStatusTip("Exit the program");
 
-    m_undoAct = new QAction("Undo", this);
+    m_undoAct = new QAction("&Undo", this);
     m_undoAct->setShortcut(QKeySequence::Undo);
     m_undoAct->setStatusTip("Undo last action");
 
-    m_redoAct = new QAction("Redo", this);
+    m_redoAct = new QAction("&Redo", this);
     m_redoAct->setShortcut(QKeySequence::Redo);
     m_redoAct->setStatusTip("Redo last undo action");
 
@@ -95,14 +104,21 @@ void MainWindow::createAction()
 
     m_aboutAct = new QAction("About", this);
     m_aboutAct->setStatusTip("About this program");
+
+    m_projectAct = new QAction("&Project", this);
 }
 
 void MainWindow::createMenu()
 {
-
     m_fileMenu = menuBar()->addMenu(tr("&File"));
-    m_fileMenu->addAction(m_newAct);
-    m_fileMenu->addAction(m_openAct);
+    QMenu *newMenu = m_fileMenu->addMenu("&New");
+    newMenu->addAction(m_newAct);
+    newMenu->addAction(m_projectAct);
+
+    QMenu *m_openMenu = m_fileMenu->addMenu("&Open");
+    m_openMenu->addAction(m_openAct);
+    m_openMenu->addAction("&Project");
+
     m_fileMenu->addAction(m_saveAct);
     m_fileMenu->addAction(m_closeAct);
     m_fileMenu->addSeparator();
@@ -119,6 +135,7 @@ void MainWindow::createMenu()
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAct);
 }
+
 
 void MainWindow::slotNewFile()
 {
@@ -182,3 +199,54 @@ void MainWindow::slotAbout()
 
 }
 
+
+void MainWindow::slotNewProject() {
+    QString project = QFileDialog::getExistingDirectory(this, "Create a new project",
+            QDir::home().path(), QFileDialog::ShowDirsOnly);
+    
+    if (project.isEmpty())
+        return;
+
+    // Update tree view
+}
+
+
+int MainWindow::createTreeView() {
+    m_dockWidget = new QDockWidget("Tree view", this);
+
+    if (!m_dockWidget)
+        return -ENOMEM;
+
+    //m_dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    
+    m_fileSystemModel = new QFileSystemModel();
+
+    if (!m_fileMenu)
+        return -ENOMEM;
+
+    m_fileSystemModel->setRootPath(QDir::homePath());
+
+    m_treeView = new QTreeView(m_dockWidget);
+
+    if (!m_treeView)
+        return -ENOMEM;
+
+    m_treeView->setModel(m_fileSystemModel);
+
+    m_treeView->setHeaderHidden(true);
+
+    // Hidden unwanted columns
+    m_treeView->setColumnHidden(1, true);
+    m_treeView->setColumnHidden(2, true);
+    m_treeView->setColumnHidden(3, true);
+
+    m_treeView->resizeColumnToContents(true);
+
+    m_treeView->setRootIndex(m_fileSystemModel->index(QDir::homePath()));
+
+    m_dockWidget->setWidget(m_treeView);
+
+    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidget);
+
+    return 0;
+}
