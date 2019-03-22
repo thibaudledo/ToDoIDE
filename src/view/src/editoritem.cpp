@@ -85,7 +85,7 @@ QString EditorItem::getCurrentFileSelected()
 
 void EditorItem::displayNextFileOrClear()
 {
-
+    updateFileDisplayContent();
 }
 
 void EditorItem::updateData()
