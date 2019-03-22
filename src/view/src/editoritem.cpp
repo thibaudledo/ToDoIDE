@@ -7,16 +7,22 @@ EditorItem::EditorItem(FileController* controller)
     m_fileController->registerObserverToModel(this);
 
     m_mainLayout = new QVBoxLayout(this);
+    m_horizontalLayout = new QHBoxLayout(this);
     m_fileDisplay = new QComboBox(this);
     m_textEditor = new QPlainTextEdit(this);
+    m_closeButton = new QToolButton(this);
 
-    m_mainLayout->addWidget(m_fileDisplay);
+    m_horizontalLayout->addWidget(m_fileDisplay);
+    m_horizontalLayout->addWidget(m_closeButton);
+
+    m_mainLayout->addItem(m_horizontalLayout);
     m_mainLayout->addWidget(m_textEditor);
 
     setLayout(m_mainLayout);
 
     connect(m_fileDisplay, &QComboBox::currentTextChanged, this, &EditorItem::slotSelectedFileChanged);
     connect(m_textEditor, &QPlainTextEdit::textChanged, this, &EditorItem::slotTextChanged);
+    connect(m_closeButton, &QToolButton::pressed, this, &EditorItem::slotCloseButtonPressed);
 
     updateFileDisplayContent();
 }
@@ -77,11 +83,6 @@ QString EditorItem::getCurrentFileSelected()
     return m_fileDisplay->currentText();
 }
 
-void EditorItem::displayNextFileOrClear()
-{
-    updateFileDisplayContent();
-}
-
 void EditorItem::updateData()
 {
     updateFileDisplayContent();
@@ -98,4 +99,9 @@ void EditorItem::slotTextChanged()
 {
     qDebug() << "slotTextChanged";
     m_fileController->setFileContent(m_fileDisplay->currentText(), getTextEditorContent());
+}
+
+void EditorItem::slotCloseButtonPressed()
+{
+    m_fileController->saveFileAndRemoveFromList(m_fileDisplay->currentText());
 }

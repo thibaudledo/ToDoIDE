@@ -5,6 +5,8 @@
 #include <QPlainTextEdit>
 #include <QComboBox>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QToolButton>
 
 #include "filecontroller.h"
 #include "observerinterface.h"
@@ -25,8 +27,10 @@ public:
     void updateData();
 private:
     QVBoxLayout* m_mainLayout;
+    QHBoxLayout* m_horizontalLayout;
     QPlainTextEdit* m_textEditor;
     QComboBox* m_fileDisplay;
+    QToolButton* m_closeButton;
 
     QString m_currentFileSelected;
 
@@ -34,6 +38,7 @@ private:
 private slots:
     void slotSelectedFileChanged(QString filename);
     void slotTextChanged();
+    void slotCloseButtonPressed();
 };
 
 #endif // EDITORITEM_H
