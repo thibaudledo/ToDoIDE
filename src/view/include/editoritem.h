@@ -24,6 +24,7 @@ public:
     void updateFileDisplayContent();
     void updateFileEditorContent();
     QString getCurrentFileSelected();
+    void displayNextFileOrClear();
     void updateData();
 private:
     QVBoxLayout* m_mainLayout;
@@ -31,6 +32,8 @@ private:
     QPlainTextEdit* m_textEditor;
     QComboBox* m_fileDisplay;
     QToolButton* m_closeButton;
+
+    QString m_currentFileSelected;
 
     QString m_currentFileSelected;
 
