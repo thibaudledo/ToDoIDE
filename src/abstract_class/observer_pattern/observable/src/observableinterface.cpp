@@ -11,6 +11,7 @@ ObservableInterface::~ObservableInterface()
 void ObservableInterface::registerObserver(ObserverInterface *o)
 {
     m_observerList.push_back(o);
+    qDebug() << QString::number(m_observerList.size());
 }
 
 void ObservableInterface::removeObserver(ObserverInterface *ob)
@@ -26,8 +27,11 @@ void ObservableInterface::removeObserver(ObserverInterface *ob)
 
 void ObservableInterface::updateAllObserver()
 {
-    for(auto o : m_observerList)
+        qDebug() << "4";
+    for(ObserverInterface* o : m_observerList)
     {
-        o->update();
+        qDebug() << "5";
+        o->updateData();
+        qDebug() << "7";
     }
 }

@@ -6,6 +6,8 @@
 
 #include "observableinterface.h"
 
+#include <QDebug>
+
 class FileModel : public ObservableInterface
 {
 public:

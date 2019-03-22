@@ -28,8 +28,11 @@ bool FileModel::isFileExist(QString fileName)
 
 void FileModel::addFileToList(QString fileName, QString fileContent)
 {
+    qDebug() << "1";
     m_tmpFileList.insert(fileName, fileContent);
+    qDebug() << "2";
     updateAllObserver();
+    qDebug() << "3";
 }
 
 void FileModel::updateFileContent(QString fileName, QString fileContent)

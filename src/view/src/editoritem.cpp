@@ -15,7 +15,7 @@ EditorItem::EditorItem(FileController* controller)
     setLayout(m_mainLayout);
 
     connect(m_fileDisplay, SIGNAL(currentTextChanged(QString)), this, SLOT(slotTextChanged(QString)));
-    connect(m_textEditor, SIGNAL(textChanged()), this, SLOT(slotTextChanged()));
+    connect(m_textEditor, &QPlainTextEdit::textChanged, this, &EditorItem::slotTextChanged);
 
     updateFileDisplayContent();
 }
@@ -42,16 +42,23 @@ void EditorItem::updateFileDisplayContent()
     m_fileDisplay->clear();
 
     int index = 0;
-    for(QString fileName : fileNameList)
+    for(QString fileNameWithPath : fileNameList)
     {
-        m_fileDisplay->addItem(fileName, index);
+        QString fileName;
+        m_fileDisplay->addItem(fileNameWithPath, index);
         index++;
     }
     m_fileDisplay->setCurrentText(currentFileSelected);
 }
 
-void EditorItem::update()
+QString EditorItem::getCurrentFileSelected()
 {
+    return m_fileDisplay->currentText();
+}
+
+void EditorItem::updateData()
+{
+    qDebug() << "6";
     updateFileDisplayContent();
 }
 
@@ -62,5 +69,6 @@ void EditorItem::slotSelectedFileChanged(QString filename)
 
 void EditorItem::slotTextChanged()
 {
+    qDebug() << m_fileDisplay->currentText();
     m_fileController->setFileContent(m_fileDisplay->currentText(), getTextEditorContent());
 }

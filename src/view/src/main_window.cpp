@@ -4,12 +4,15 @@ MainWindow::MainWindow(FileController* controller)
 {
     m_fileController = controller;
 
+    setFixedSize(QSize(800,600));
+
+    move(460,240);
+
     m_mainLayout = new QVBoxLayout(this);
 
     m_editorItem = new EditorItem(m_fileController);
 
-    // m_textEditor = new QPlainTextEdit(this);
-    //m_mainLayout->addWidget(m_textEditor);
+    m_fileController->registerObserverToModel(m_editorItem);
 
     setCentralWidget(m_editorItem);
 
@@ -19,8 +22,6 @@ MainWindow::MainWindow(FileController* controller)
 
     createAction();
     createMenu();
-
-    //setLayout(m_mainLayout);
 
     connect(m_newAct, &QAction::triggered, this, &MainWindow::slotNewFile);
     connect(m_openAct, &QAction::triggered, this, &MainWindow::slotOpenFile);
@@ -121,7 +122,14 @@ void MainWindow::createMenu()
 
 void MainWindow::slotNewFile()
 {
-
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Create a file"),
+                               QDir::home().path(),
+                               tr("Files (*)"));
+    qDebug() << fileName;
+    if(fileName != "")
+    {
+        m_fileController->createNewFile(fileName);
+    }
 }
 
 void MainWindow::slotOpenFile()
@@ -131,7 +139,7 @@ void MainWindow::slotOpenFile()
 
 void MainWindow::slotSaveFile()
 {
-
+    m_fileController->saveFile(m_editorItem->getCurrentFileSelected());
 }
 
 void MainWindow::slotCloseFile()

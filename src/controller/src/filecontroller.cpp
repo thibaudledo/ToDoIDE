@@ -9,7 +9,7 @@ int FileController::createNewFile(QString fileName)
 {
     if(m_fileModel->isFileExist(fileName)) return false;
     m_fileModel->addFileToList(fileName, "");
-    return false;
+    return true;
 }
 
 int FileController::openFile(QString fileName)
@@ -65,7 +65,10 @@ void FileController::setFileContent(QString fileName, QString fileContent)
 
 void FileController::registerObserverToModel(ObserverInterface *observer)
 {
-    m_fileModel->registerObserver(observer);
+    if(observer!=nullptr)
+    {
+            m_fileModel->registerObserver(observer);
+    }
 }
 
 void FileController::removeObserverFromModel(ObserverInterface *observer)
