@@ -58,7 +58,7 @@ private:
     QAction* m_copyAct;
     QAction* m_pasteAct;
     QAction* m_aboutAct;
-
+    QAction* m_projectAct;
 
     QTreeView* m_treeView;
 
@@ -77,5 +77,5 @@ private slots:
     void slotCopy();
     void slotPaste();
     void slotAbout();
-
+    void slotNewProject();
 };
