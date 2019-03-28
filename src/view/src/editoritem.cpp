@@ -47,7 +47,8 @@ void EditorItem::updateFileDisplayContent()
 {
     disconnect(m_fileDisplay, &QComboBox::currentTextChanged, this, &EditorItem::slotSelectedFileChanged);
     QList<QString> fileNameList = m_fileController->getFileNameList();
-    QString currentFileSelected = m_fileDisplay->currentText();
+    //m_currentFileSelected = m_fileDisplay->currentText();
+    //QString currentFileSelected = fileNameList.last();
     m_fileDisplay->clear();
 
     int index = 0;
@@ -57,10 +58,10 @@ void EditorItem::updateFileDisplayContent()
         m_fileDisplay->addItem(fileNameWithPath, index);
         index++;
     }
-    if(!currentFileSelected.isEmpty())
-    {
-        m_fileDisplay->setCurrentText(currentFileSelected);
-    }
+
+    qDebug() << m_currentFileSelected;
+    m_fileDisplay->setCurrentText(m_currentFileSelected);
+
     connect(m_fileDisplay, &QComboBox::currentTextChanged, this, &EditorItem::slotSelectedFileChanged);
 }
 
@@ -88,6 +89,11 @@ void EditorItem::updateData()
 {
     updateFileDisplayContent();
     updateFileEditorContent();
+}
+
+void EditorItem::setCurrentFileSelected(const QString &currentFileSelected)
+{
+    m_currentFileSelected = currentFileSelected;
 }
 
 void EditorItem::slotSelectedFileChanged(QString filename)

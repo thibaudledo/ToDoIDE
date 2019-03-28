@@ -62,6 +62,11 @@ void FileController::setFileContent(QString fileName, QString fileContent)
     m_fileModel->updateFileContent(fileName, fileContent);
 }
 
+int FileController::isFileOpen(QString fileName)
+{
+    return m_fileModel->isFileExist(fileName);
+}
+
 void FileController::registerObserverToModel(ObserverInterface *observer)
 {
     if(observer!=nullptr)

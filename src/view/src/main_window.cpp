@@ -142,8 +142,8 @@ void MainWindow::createMenu()
 void MainWindow::slotNewFile()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Create a file"),
-                               QDir::home().path(),
-                               tr("Files (*)"));
+                                                    QDir::home().path(),
+                                                    tr("Files (*)"));
     if(fileName != "")
     {
         m_fileController->createNewFile(fileName);
@@ -153,8 +153,8 @@ void MainWindow::slotNewFile()
 void MainWindow::slotOpenFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open a file"),
-                               QDir::home().path(),
-                               tr("Files (*)"), nullptr,QFileDialog::DontConfirmOverwrite);
+                                                    QDir::home().path(),
+                                                    tr("Files (*)"), nullptr,QFileDialog::DontConfirmOverwrite);
     if(fileName != "")
     {
         m_fileController->openFile(fileName);
@@ -210,13 +210,13 @@ void MainWindow::slotAbout()
 
 void MainWindow::slotOpenProject() {
     QString project = QFileDialog::getExistingDirectory(this, "Create a new project",
-            QDir::home().path(), QFileDialog::ShowDirsOnly);
+                                                        QDir::home().path(), QFileDialog::ShowDirsOnly);
     
     if (project.isEmpty())
         return;
 
     // Update tree view
-    m_treeView->setRootIndex(m_fileSystemModel->index(project)); 
+    m_treeView->setRootIndex(m_fileSystemModel->index(project));
 }
 
 
@@ -227,7 +227,12 @@ void MainWindow::slotTreeViewDoubleClicked(const QModelIndex &index) {
         return;
     }
 
-    m_fileController->openFile(qobject_cast<const QFileSystemModel *>(index.model())->filePath(index));
+    if(!m_fileController->isFileOpen(qobject_cast<const QFileSystemModel *>(index.model())->filePath(index)))
+    {
+        m_fileController->openFile(qobject_cast<const QFileSystemModel *>(index.model())->filePath(index));
+    }
+    m_editorItem->setCurrentFileSelected(qobject_cast<const QFileSystemModel *>(index.model())->filePath(index));
+    m_editorItem->updateData();
 }
 
 

@@ -20,6 +20,8 @@ public:
     QString getFileContent(QString fileName);
     void setFileContent(QString fileName, QString fileContent);
 
+    int isFileOpen(QString fileName);
+
     void registerObserverToModel(ObserverInterface* observer);
     void removeObserverFromModel(ObserverInterface* observer);
     QList<QString> getFileNameList();

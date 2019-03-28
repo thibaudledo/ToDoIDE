@@ -25,6 +25,8 @@ public:
     void updateFileEditorContent();
     QString getCurrentFileSelected();
     void updateData();
+    void setCurrentFileSelected(const QString &currentFileSelected);
+
 private:
     QVBoxLayout* m_mainLayout;
     QHBoxLayout* m_horizontalLayout;
