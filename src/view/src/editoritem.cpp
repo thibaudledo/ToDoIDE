@@ -12,6 +12,7 @@ EditorItem::EditorItem(FileController* controller)
     m_textEditor = new QPlainTextEdit(this);
     m_closeButton = new QToolButton(this);
 
+    m_horizontalLayout->setSpacing(10);
     m_horizontalLayout->addWidget(m_fileDisplay);
     m_horizontalLayout->addWidget(m_closeButton);
 
