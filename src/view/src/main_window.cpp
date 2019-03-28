@@ -1,5 +1,8 @@
 #include "main_window.h"
 
+#include <iostream>
+
+#include <QAbstractItemModel>
 #include <QDir>
 
 
@@ -36,7 +39,7 @@ MainWindow::MainWindow(FileController* controller)
     connect(m_copyAct, &QAction::triggered, this, &MainWindow::slotCopy);
     connect(m_pasteAct, &QAction::triggered, this, &MainWindow::slotPaste);
     connect(m_aboutAct, &QAction::triggered, this, &MainWindow::slotAbout);
-    connect(m_projectAct, &QAction::triggered, this, &MainWindow::slotNewProject);
+    connect(m_projectAct, &QAction::triggered, this, &MainWindow::slotOpenProject);
 }
 
 
@@ -112,11 +115,11 @@ void MainWindow::createMenu()
     m_fileMenu = menuBar()->addMenu(tr("&File"));
     QMenu *newMenu = m_fileMenu->addMenu("&New");
     newMenu->addAction(m_newAct);
-    newMenu->addAction(m_projectAct);
+    newMenu->addAction("&Project");
 
     QMenu *m_openMenu = m_fileMenu->addMenu("&Open");
     m_openMenu->addAction(m_openAct);
-    m_openMenu->addAction("&Project");
+    m_openMenu->addAction(m_projectAct);
 
     m_fileMenu->addAction(m_saveAct);
     m_fileMenu->addAction(m_closeAct);
@@ -205,7 +208,7 @@ void MainWindow::slotAbout()
 }
 
 
-void MainWindow::slotNewProject() {
+void MainWindow::slotOpenProject() {
     QString project = QFileDialog::getExistingDirectory(this, "Create a new project",
             QDir::home().path(), QFileDialog::ShowDirsOnly);
     
@@ -213,6 +216,18 @@ void MainWindow::slotNewProject() {
         return;
 
     // Update tree view
+    m_treeView->setRootIndex(m_fileSystemModel->index(project)); 
+}
+
+
+void MainWindow::slotTreeViewDoubleClicked(const QModelIndex &index) {
+    if (!m_fileController) {
+        std::cerr << "error: file controller: no allocated" << std::endl;
+
+        return;
+    }
+
+    m_fileController->openFile(qobject_cast<const QFileSystemModel *>(index.model())->filePath(index));
 }
 
 
@@ -252,6 +267,8 @@ int MainWindow::createTreeView() {
     m_dockWidget->setWidget(m_treeView);
 
     addDockWidget(Qt::LeftDockWidgetArea, m_dockWidget);
+
+    connect(m_treeView, &QAbstractItemView::doubleClicked, this, &MainWindow::slotTreeViewDoubleClicked);
 
     return 0;
 }

@@ -83,5 +83,6 @@ private slots:
     void slotCopy();
     void slotPaste();
     void slotAbout();
-    void slotNewProject();
+    void slotOpenProject();
+    void slotTreeViewDoubleClicked(const QModelIndex &index);
 };
